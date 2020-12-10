@@ -1,12 +1,64 @@
-const start = document.querySelector('#btnStart');
+const start = document.querySelector('#startBtn');
+const categoryBtns = document.querySelector('.amountBtn');
+const chooseCategory = document.querySelector('.chooseCategory');
 
-start.addEventListener('click', quiz);
 
-function quiz() {
-  let num = document.querySelector('#questionNumber')
+categoryBtns.addEventListener('click', (e) => {
+  let category = '';
 
-  num.innerHTML = 'Question NUMBER   1'
+  if (e.target.nodeName == 'BUTTON') {
+    category = e.target.getAttribute('data-category');
 
+    chooseCategory.innerHTML = `Your category is ${e.target.innerHTML}`;
+
+    categoryBtns.innerHTML = '';
+
+  }
+  startquiz(category);
+});
+
+// 21 sport
+// 11 movie
+// 22 geography
+
+// function creatStartBtn() {
+//   const button = document.createElement('BUTTON');
+//   let btnClass =
+//     'block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-12 rounded';
+//   button.className = btnClass;
+//   button.innerHTML = 'Start';
+//   button.id = 'startBtn';
+//   const mainDiv = document.querySelector('.main');
+//   mainDiv.append(button);
+// }
+
+function startquiz(category) {
+
+  let url = `https://opentdb.com/api.php?amount=41&category=${category}&difficulty=easy&type=multiple`;
+
+  const button = document.createElement('BUTTON');
+  let btnClass =
+    'block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-12 rounded';
+  button.className = btnClass;
+  button.innerHTML = 'Start';
+  button.id = 'startBtn';
+  const mainDiv = document.querySelector('.main');
+  mainDiv.append(button);
+
+  button.addEventListener('click', () => {
+    console.log(url);
+    console.log(
+      'https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple'
+    );
+    // quiz('https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple');
+    quiz(url);
+  });
+}
+
+function quiz(url) {
+  let num = document.querySelector('#questionNumber');
+
+  num.innerHTML = 'Question NUMBER   1';
 
   document.querySelector('#questionAnswers').innerHTML = '';
   async function showAvatar(url) {
@@ -15,9 +67,7 @@ function quiz() {
     return Promise.resolve(questions);
   }
 
-  let question = showAvatar(
-    `https://opentdb.com/api.php?amount=50&category=11&difficulty=easy&type=multiple`
-  )
+  let question = showAvatar(url)
     .then((data) => {
       let allQuestions = data.results;
 
@@ -42,16 +92,17 @@ function quiz() {
 }
 
 function getdata(obj) {
+
   answerQuestion(obj);
 }
 
-function answerQuestion(answer,i=0) {
-
-
+function answerQuestion(answer, i = 0) {
   document.querySelector('#questionAnswers').innerHTML = '';
   const question = document.querySelector('#questionArea');
   const answerClass =
     'w-full px-4 py-2 font-thin bg-gray-200 rounded-md hover:bg-indigo-100 hover:font-semibold ';
+
+
 
   question.innerHTML = answer[i].question;
 
@@ -64,51 +115,34 @@ function answerQuestion(answer,i=0) {
     document.querySelector('#questionAnswers').append(div);
   });
 
-
   const questionAnswer = document.querySelector('#questionAnswers');
   questionAnswer.addEventListener('click', choiceBtn);
 
-  console.log(answer[i].correctAnswer);
+  // console.log(answer[i].correctAnswer);
 
   function choiceBtn(e) {
+    console.log(e.target.nodeName);
 
-    console.log(answer[i])
-    console.log(answer[i].correctAnswer);
-    console.log(e);
-    // selectAnswer(e.target.innerText);
-    if (answer[i].correctAnswer == e.target.innerText) {
+    if (e.target.nodeName == 'BUTTON') {
+      if (answer[i].correctAnswer == e.target.innerText) {
+        let num = document.querySelector('#questionNumber');
+        num.innerHTML = 'Question NUMBER ' + (i + 2);
 
+        setTimeout(() => {
+          answerQuestion(answer, i + 1);
+        }, 300);
 
-      console.log('true answer !!!!!!!!!');
-      let num = document.querySelector('#questionNumber')
+        document.querySelector('#questionAnswers').innerHTML = '';
+        return true;
+      } else {
+        document.querySelector('#questionAnswers').innerHTML =
+          'You Lose   ' + i;
 
-      num.innerHTML = 'Question NUMBER ' + (i+2)
-      
-      setTimeout(()=>{answerQuestion(answer,i+1)},300)
-      
-
-      document.querySelector('#questionAnswers').innerHTML = ''
-      return true;
-    } else {
-
-      document.querySelector('#questionAnswers').innerHTML = 'You Lose   ' + i;
-      console.log('false ????????');
-      return false;
+        return false;
+      }
     }
   }
-
-
-
 }
-
-
-
-
-
-
-
-
-
 
 // paint question function
 function paintQuestion(questionObj) {

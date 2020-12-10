@@ -7,44 +7,45 @@
     <link rel="stylesheet" href="./styles/outStyle.css" type="text/css" />
   </head>
   <body>
-    <div class="main text-center">
-      <p class="text-lg mx-auto w-20 text-center py-8 tracking-wider">MOVIE QUIZ</p>
-      <!-- <div class="amountBtn flex w-80 mx-auto py-6">
-        <button
-          id="amountBtn-3"
-          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-        >
-          3
-        </button>
-        <button
-          id="amountBtn-3"
-          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-        >
-          5
-        </button>
-        <button
-          id="amountBtn-3"
-          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
-        >
-          10
-        </button>
-      </div> -->
+    <div class="main text-center w-2/6 mx-auto ">
+      <p class="text-lg mx-auto w-20 text-center py-8 tracking-wider">QUIZ</p>
+      <p class="text-lg mx-auto w-40 text-center py-8 tracking-wider chooseCategory">Choose category</p>
 
-      <button
-        id="btnStart"
+      <div class="amountBtn grid grid-cols-3 gap-12 mx-auto py-6">
+        <button
+          data-category="21"
+          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
+        >
+          SPORT
+        </button>
+        <button
+        data-category="22"
+          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
+        >
+          GEOGRAPHYE
+        </button>
+        <button
+        data-category="11"
+          class="block uppercase mx-auto shadow bg-indigo-400 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
+        >
+        MOVIE
+        </button>
+      </div>
+
+      <!-- <button
+        id="startBtn"
         class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-12 rounded"
       >
         Start
-      </button>
+      </button> -->
     </div>
     <div class="questionArea">
       <div>
         <section class="text-gray-700">
-          <div
-            class="container py-14 mx-auto w-1/2 "
-          >
+          <div class="container py-14 mx-auto w-1/2">
             <div class="text-center mb-6">
-              <h3 id="questionNumber"
+              <h3
+                id="questionNumber"
                 class="sm:text-xl text-lg font-medium text-center title-font text-gray-900 mb-10"
               >
                 WELCOME
@@ -61,8 +62,7 @@
               id="questionAnswers"
               class="grid grid-cols-2 gap-4 justify-items-center"
             >
-                <!-- answer 1 -->
-              
+              <!-- answer 1 -->
             </div>
           </div>
         </section>
